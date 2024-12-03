@@ -1,6 +1,4 @@
-f = open("resources/day1_input.txt", "r")
-lines = [list(map(int, x)) for x in [l.split("  ") for l in f.read().splitlines()]]
-f.close()
+lines = [[int(x) for x in l.split("  ")] for l in open("resources/day1_input.txt", "r")]
 a = sorted([x[0] for x in lines])
 b = sorted([x[1] for x in lines])
 m = {x:b.count(x) for x in b}
