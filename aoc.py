@@ -8,3 +8,10 @@ def stringsArrayToLists(lines, op = lambda x: x):
         for x,c in enumerate(l):
             data[y][x] = op(c)
     return data, height, width
+
+
+def addCoords(c1, c2):
+    if len(c1) != len(c2):
+        print(f"ERROR: addCorrds with different vector sizes: {c1}, {c2}")
+        exit(-1)
+    return tuple((x+y for (x,y) in zip(c1, c2)))
