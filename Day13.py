@@ -1,4 +1,4 @@
-lines = [l.removesuffix("\n") for l in open("resources/day13_test_input.txt", "r")]
+lines = [l.removesuffix("\n") for l in open("resources/day13_input.txt", "r")]
 arcades = []
 PART2 = True
 while len(lines) > 0:
@@ -15,24 +15,17 @@ while len(lines) > 0:
     px, py = int(line[0]) + (10000000000000 if PART2 else 0), int(line[1]) + (10000000000000 if PART2 else 0)
     arcade = [(ax,ay), (bx,by), (px,py)]
     arcades.append(arcade)
-print(arcades)
 best = []
+# [0][0] [1][0] [2][0]
+# [0][1] [1][1] [2][1]
 for arcade in arcades:
-    for b_pushes in range(101):
-        remX = arcade[2][0]-arcade[1][0]*b_pushes
-        remY = arcade[2][1]-arcade[1][1]*b_pushes
-        if remX==0 and remY==0:
-            best.append((0, b_pushes))
-            break
-        if remX<0 or remY<0:
-            break
-        if remX % arcade[0][0] != 0 or remY % arcade[0][1] != 0:
-            continue
-        a_pushes = int(remX / arcade[0][0])
-        if a_pushes * arcade[0][1] != remY:
-            continue
-        best.append((a_pushes, b_pushes))
-        break
+    det = arcade[0][0]*arcade[1][1] - arcade[1][0]*arcade[0][1]
+    detA = arcade[2][0]*arcade[1][1] - arcade[1][0]*arcade[2][1]
+    detB = arcade[0][0]*arcade[2][1] - arcade[2][0]*arcade[0][1]
+    a = detA / det
+    b = detB / det
+    if int(a) == a and int(b) == b:
+        best.append((int(a), int(b)))
 res = sum(a*3+b for a,b in best)
 print(f"Minimal tokens: {res}")
 
