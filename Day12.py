@@ -30,7 +30,7 @@ for y,l in enumerate(data):
             reginfo[regnum][AREA] += 1
             reginfo[regnum][PLOTS][cx, cy] = set()
             for direction in ["N", "S", "E", "W"]:
-                nx, ny = aoc.addCoords((cx,cy), aoc.DIRECTIONS[direction])
+                nx, ny = aoc.addCoords((cx,cy), aoc.DIRECTION_MOVEMENT[direction])
                 if check_bounds(nx, ny) and data[ny][nx] == regtype:
                     if (nx, ny) not in visited:
                         to_explore.add((nx, ny))
@@ -45,7 +45,7 @@ for regtype in reginfo:
     for (x,y) in plots:
         for dir in dirs_to_check:
             if dir in plots[x,y]:
-                nx, ny = aoc.addCoords((x,y), aoc.DIRECTIONS[dirs_to_check[dir][0]])
+                nx, ny = aoc.addCoords((x,y), aoc.DIRECTION_MOVEMENT[dirs_to_check[dir][0]])
                 if not check_bounds(nx, ny) or (nx,ny) not in plots or dir not in plots[nx, ny]:
                     reginfo[regtype][SIDES] += 1
 #print(reginfo)

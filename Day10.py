@@ -1,5 +1,5 @@
 import aoc
-from aoc import DIRECTIONS
+from aoc import DIRECTION_MOVEMENT
 
 lines = [l.removesuffix("\n") for l in open("resources/day10_input.txt", "r")]
 data, height, width = aoc.stringsArrayToLists(lines, int)
@@ -14,8 +14,8 @@ def explore(x, y, path, part2=False):
         return {newpath}
     all_reachable = set()
     for dir in ["N", "E", "S", "W"]:
-        nx = x + DIRECTIONS[dir][0]
-        ny = y + DIRECTIONS[dir][1]
+        nx = x + DIRECTION_MOVEMENT[dir][0]
+        ny = y + DIRECTION_MOVEMENT[dir][1]
         if check_bounds(nx, ny):
             if data[ny][nx] == data[y][x]+1:
                 reachable = explore(nx, ny, newpath, part2)

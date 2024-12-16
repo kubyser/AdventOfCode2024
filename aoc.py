@@ -1,4 +1,6 @@
-DIRECTIONS = {"N":(0,-1), "NE":(1,-1), "E":(1,0), "SE":(1,1), "S":(0,1), "SW":(-1,1), "W":(-1,0), "NW":(-1,-1)}
+DIRECTION_MOVEMENT = {"N":(0, -1), "NE":(1, -1), "E":(1, 0), "SE":(1, 1), "S":(0, 1), "SW":(-1, 1), "W":(-1, 0), "NW":(-1, -1)}
+DIRECTIONS_MAIN = ("N", "E", "S", "W")
+TURNS = {"N": {"L": "W", "R": "E"}, "S": {"L": "E", "R": "W"}, "E": {"L": "N", "R": "S"}, "W": {"L": "S", "R": "N"}, }
 
 def stringsArrayToLists(lines, op = lambda x: x):
     width = len(lines[0])
