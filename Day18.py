@@ -1,4 +1,3 @@
-from Day16 import visited
 from aoc import addCoords, DIRECTION_MOVEMENT, DIRECTIONS_MAIN
 
 def check_bounds(pos):

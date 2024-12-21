@@ -1,5 +1,4 @@
 import aoc
-from Day16 import to_visit
 
 lines = [l.removesuffix("\n") for l in open("resources/day20_input.txt", "r")]
 width = len(lines[0])
