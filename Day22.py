@@ -1,3 +1,4 @@
+import time
 from functools import reduce
 from operator import concat
 
@@ -15,20 +16,35 @@ def getNextNumber(num):
     num = num % 16777216
     return num
 
-randomNumbers = [[] for x in data]
+def shiftLeft(a):
+    for i in range(len(a)-1):
+        curSeq[i] = curSeq[i+1]
+
+
+startTime = time.time()
+lastRandomNumbers = [None]*len(data)
 sequences = [{} for x in data]
-for pos,x in enumerate(data):
-    randomNumbers[pos].append(x)
+for pos,prevX in enumerate(data):
+    curSeq = [None]*4
+    #randomNumbers[pos].append(x)
+    curSeq[3] = prevX%10
+    x = None
     for i in range(2000):
-        x = getNextNumber(x)
-        randomNumbers[pos].append(x)
+        x = getNextNumber(prevX)
+        shiftLeft(curSeq)
+        curSeq[3] = x%10-prevX%10
+        #randomNumbers[pos].append(x)
         if i >= 3:
-            seq = reduce(concat, [str(randomNumbers[pos][i+1-n]%10 - randomNumbers[pos][i-n]%10)+"," for n in (3,2,1,0)])
+            seq = reduce(concat, [str(n)+"," for n in curSeq])
             if seq not in sequences[pos]:
                 sequences[pos][seq] = x%10
+        prevX = x
+    lastRandomNumbers[pos] = x
 
-res = sum(seq[2000] for seq in randomNumbers)
+res = sum(lastRandomNumbers)
+endTime = time.time()
 print(f"Sum of numbers: {res}")
+print(f"Time elapsed: {endTime-startTime}")
 
 allSequences = reduce(lambda a,b:a.union(b), [set(a.keys()) for a in sequences])
 sumPrices = {}
@@ -39,7 +55,9 @@ for seqStr in allSequences:
 
 maxSum = max(sumPrices.values())
 bestSeq = [a for a in sumPrices if sumPrices[a] == maxSum][0]
+endTime = time.time()
 print(f"Best sequence: {bestSeq}, puchases {maxSum} bananas")
+print(f"Time elapsed: {endTime-startTime}")
 
 
 
